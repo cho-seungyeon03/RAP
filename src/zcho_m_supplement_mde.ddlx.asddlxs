@@ -1,0 +1,16 @@
+@Metadata.layer: #CUSTOMER
+annotate entity ZCHO_M_SUPPLEMENT_C
+    with 
+{
+    @ui.lineItem: [{ position : 10 }]
+    travelId;
+    @ui.lineItem: [{ position : 20 }]
+    bookingId;
+    @ui.lineItem: [{ position : 30 }]
+    bookingSupplId;
+    @ui.lineItem : [ { position : 40 } ]
+    SupplementId;
+    @ui.lineItem: [{ position :50 }]
+    Price;
+}
+

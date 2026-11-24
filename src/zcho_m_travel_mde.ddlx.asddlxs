@@ -1,0 +1,122 @@
+@Metadata.layer: #CUSTOMER
+@Search.searchable: true
+@UI.headerInfo: { 
+    typeName: 'Travel Detail',
+    typeImageUrl: 'Results',
+    title: {
+        type : #STANDARD,
+        value : 'TravelId'
+    
+     }
+
+ }
+
+annotate entity zcho_m_travel_p
+    with  
+{   
+    @UI.facet : [
+    
+    {
+        id : 'Travel',
+        purpose: #STANDARD,
+        position: 10,
+        label : 'Travel',
+        type : #IDENTIFICATION_REFERENCE
+    
+     },
+     
+     { 
+        id : 'Booking',
+        purpose : #STANDARD,
+        position: 20,
+        label : 'Booking',
+        hidden : #( BookingHiddenFlag ), //동적으로 숨김처리
+        type : #LINEITEM_REFERENCE,
+        targetElement: '_BOOKING'
+     }, 
+     
+     { 
+        id       : 'Supplement',
+        purpose  : #STANDARD,
+        position : 30,
+        label    : 'Booking Supplement',
+        type     : #LINEITEM_REFERENCE,
+        targetElement: '_SUPPLEMENT'
+        
+     }
+    
+    ]
+   
+
+    @UI.lineItem: [{ position: 10 },
+                   { type: #FOR_ACTION, dataAction: 'setBooked', label : 'set Booked', position: 10 },
+                   { type: #FOR_ACTION, dataAction: 'setDiscount', label : 'Discount 10%', position: 20 },
+                   { type: #FOR_ACTION, dataAction: 'lineCopy', label : 'Copy', position: 30 }]
+    @UI.identification: [{ position: 10 }]
+    @UI.selectionField: [{ position : 10 }]
+    @Search.defaultSearchElement: true
+    TravelId;
+    @UI.lineItem: [{ position: 20 }]
+     @UI.identification: [{ position: 20 }]
+     @UI.selectionField: [{ position : 20 }]
+     @Search.defaultSearchElement: true
+     @Consumption.valueHelpDefinition: [{ entity : { name : '/DMO/I_AGENCY',
+                                                     element: 'AgencyID' }  }]  //VALUE HELP
+    AgencyId;
+    
+    @Search.defaultSearchElement: true
+    @Search.fuzzinessThreshold: 0.8
+   
+    AgencyName;
+    
+    @UI.lineItem: [{ position: 30 }]
+     @UI.identification: [{ position: 30 }]
+     @UI.selectionField: [{ position: 30 }]
+     @Search.defaultSearchElement: true
+     @Consumption.valueHelpDefinition: [{ entity : { name : '/DMO/I_Customer',
+                                                    element : 'CustomerID' }  }] //VALUE HELP
+    CustomerId;
+    
+    @Search.defaultSearchElement: true
+    @Search.fuzzinessThreshold: 0.8
+   
+    CustomerName;
+   
+    @UI.lineItem: [{ position: 40 }]
+     @UI.identification: [{ position: 40 }]
+     @UI.selectionField: [{ position: 40 }]
+     @Consumption.filter.selectionType: #INTERVAL
+     
+    BeginDate;
+    
+    @UI.lineItem: [{ position: 50 }]
+     @UI.identification: [{ position: 50 }]
+     @UI.selectionField: [{ position: 50 }]
+     @Consumption.filter.selectionType: #INTERVAL
+      
+    EndDate;
+    
+    @UI.lineItem: [ { position: 60,
+                      criticality: 'DepartureCriticality',
+                      criticalityRepresentation: #WITH_ICON } ]
+   @UI.identification: [{ position : 60,
+                          criticality: 'DepartureCriticality',
+                          criticalityRepresentation: #WITH_ICON }]
+     DaysUntilDeparture;                                         
+    
+    @UI.lineItem: [{ position: 60 }]
+     @UI.identification: [{ position: 60 }]
+    BookingFee;
+    @UI.lineItem: [{ position: 70 }]
+     @UI.identification: [{ position: 70 }]
+    TotalPrice;
+    @UI.lineItem: [{ position: 80 }]
+     @UI.identification: [{ position: 80 }]
+     @UI.selectionField: [{ position: 60 }]
+     @Search.defaultSearchElement: true
+     @Consumption.valueHelpDefinition: [{ entity : { name : '/DMO/I_Travel_Status_VH',
+                                                     element : 'TravelStatus' } }]
+    Status;
+
+    
+}

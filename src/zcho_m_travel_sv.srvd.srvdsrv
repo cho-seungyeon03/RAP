@@ -1,0 +1,6 @@
+@EndUserText.label: 'travel service definition'
+define service Zcho_m_travel_sv {
+  expose zcho_m_travel_p;
+  expose zcho_m_booking_p;
+  expose zcho_m_supplement_c;
+}
